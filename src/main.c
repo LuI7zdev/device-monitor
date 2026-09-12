@@ -1,16 +1,21 @@
 #include <stdio.h>
+#include <string.h>
 #include <sys/utsname.h>
 
 int main(void)
 {
 
     struct utsname buf;
-    uname(&buf);
+    if (uname(&buf) != 0)
+    {
+        perror("Erro ao obter informações do sistema");
+        return 1;
+    }
 
     printf("========== MONITOR DO SISTEMA  ============\n");
 
     printf("SISTEMA: %s\n", buf.sysname);
-    printf("DISTRIBUIÇÃO: %s\n", buf.nodename);
+    printf("NOME DA MÁQUINA: %s\n", buf.nodename);
     printf("RELEASE: %s\n", buf.release);
     printf("VERSÃO: %s\n", buf.version);
     printf("ARQUITETURA: %s\n", buf.machine);
@@ -57,4 +62,6 @@ int main(void)
     printf("Disponivel: %.2f GB\n", disponivel_gb);
 
     printf("=======================================\n");
+
+    return 0;
 }
